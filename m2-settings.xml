@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+  <profiles>
+    
+  
+  
+  <profile>
+      <id>jboss-ga-repository</id>
+      <repositories>
+        <repository>
+          <id>jboss-ga-repository</id>
+          <name>jboss-ga-repository</name>
+          <url>http://maven.repository.redhat.com/techpreview/all</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>jboss-ga-repository</id>
+          <name>jboss-ga-repository</name>
+          <url>http://maven.repository.redhat.com/techpreview/all</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+    
+	<profile>
+      <id>jboss-public-repository-group</id>
+	  <repositories>  
+    <repository>  
+      <id>jboss-public-repository-group</id>  
+      <name>JBoss Public Repository Group</name>  
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>  
+      <layout>default</layout>  
+      <releases>  
+        <enabled>true</enabled>  
+        <updatePolicy>daily</updatePolicy>  
+      </releases>  
+      <snapshots>  
+        <enabled>true</enabled>  
+        <updatePolicy>daily</updatePolicy>  
+      </snapshots>  
+    </repository>  
+  </repositories>  
+  <pluginRepositories>  
+    <pluginRepository>  
+      <id>jboss-public-repository-group</id>  
+      <name>JBoss Public Repository Group</name>  
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>  
+      <releases>  
+        <enabled>true</enabled>  
+      </releases>  
+      <snapshots>  
+        <enabled>true</enabled>  
+      </snapshots>  
+    </pluginRepository>  
+  </pluginRepositories>
+	  </profile>
+  <profile>
+      <id>jboss-earlyaccess-repository</id>
+      <repositories>
+        <repository>
+          <id>jboss-earlyaccess-repository</id>
+          <name>jboss-earlyaccess-repository</name>
+          <url>http://maven.repository.redhat.com/earlyaccess/all/</url>
+          <snapshots>
+            <enabled>false</enabled>
+            <updatePolicy>daily</updatePolicy>
+          </snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>jboss-earlyaccess-repository</id>
+          <name>jboss-earlyaccess-repository</name>
+          <url>http://maven.repository.redhat.com/earlyaccess/all/</url>
+          <snapshots>
+            <enabled>false</enabled>
+            <updatePolicy>daily</updatePolicy>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+	<profile>  
+      <id>jboss-deprecated</id>  
+      <repositories>  
+        <repository>  
+          <id>jboss-deprecated</id>  
+          <name>JBoss Deprecated</name>  
+          <url>https://repository.jboss.org/nexus/content/repositories/deprecated/</url>  
+          <layout>default</layout>  
+          <releases>  
+            <enabled>true</enabled>  
+            <updatePolicy>never</updatePolicy>  
+          </releases>  
+          <snapshots>  
+            <enabled>false</enabled>  
+          </snapshots>  
+        </repository>  
+      </repositories>  
+    </profile> 
+	<profile>  
+      <id>jboss-maven2-brew</id>  
+      <repositories>  
+        <repository>  
+          <id>jboss-maven2-brew</id>  
+          <name>JBoss Maven 2 Brew Repository</name>  
+          <url>http://repository.jboss.org/maven2-brew/</url>  
+          <layout>default</layout>  
+          <releases>  
+            <enabled>true</enabled>  
+            <updatePolicy>never</updatePolicy>  
+          </releases>  
+          <snapshots>  
+            <enabled>false</enabled>  
+          </snapshots>  
+        </repository>  
+      </repositories>  
+    </profile> 
+  </profiles>
+  
+  <activeProfiles>
+    
+  
+  
+  <activeProfile>jboss-ga-repository</activeProfile>
+  <activeProfile>jboss-earlyaccess-repository</activeProfile>
+  <activeProfile>jboss-public-repository-group</activeProfile>
+  <activeProfile>jboss-deprecated</activeProfile>  
+  <activeProfile>jboss-maven2-brew</activeProfile>    
+  </activeProfiles>
+</settings>
