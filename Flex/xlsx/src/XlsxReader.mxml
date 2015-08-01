@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"			   
+			   width="100%" height="100%"
+			   creationComplete="application1_creationCompleteHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.as3.xlsxreader.Worksheet;
+			import com.as3.xlsxreader.XLSXLoader;
+			
+			import mx.containers.Canvas;
+			import mx.controls.Alert;
+			import mx.controls.DataGrid;
+			import mx.controls.Label;
+			import mx.events.FlexEvent;
+			
+			public var xlsxReader:XLSXLoader;
+			
+			protected function loadBtn_clickHandler(event:MouseEvent):void
+			{
+				tabBar.removeAllChildren();							
+				xlsxReader = new XLSXLoader();
+				var fileReferene:FileReference = new FileReference();			
+				
+				fileReferene.addEventListener(Event.SELECT,function load(e:Event):void{
+					if(fileReferene.name.toString().indexOf(".xlsx") != -1) {
+					     fileReferene.load();					
+					}
+					else {						
+						Alert.show("Invalid FIle Type!. Plz Select only .xlsx file");
+					}
+				});			
+				
+				fileReferene.addEventListener(Event.COMPLETE,fileLoadingComplete);
+				fileReferene.browse();
+			}
+			protected function fileLoadingComplete(event:Event):void {
+				var fileData:ByteArray = event.currentTarget.data as ByteArray;
+				xlsxReader.loadFromByteArray(fileData);
+				loadData(event);
+			}
+			
+			protected function application1_creationCompleteHandler(event:Event):void
+			{
+				tabBar.removeAllChildren();							
+				xlsxReader = new XLSXLoader();
+				// TODO Auto-generated method stub
+				xlsxReader.addEventListener(Event.COMPLETE,function(event:Event):void{
+					loadData(event);
+				});
+				xlsxReader.load("Example.xlsx");			
+			}
+			
+			protected function loadData(event:Event):void{
+				
+				for each(var _sheet:String in xlsxReader.getSheetNames()){
+					var _sheetData:Worksheet = xlsxReader.worksheet(_sheet);
+					_sheetData._dateFormatString = "yyyy-MM-dd";
+					var _can:Canvas = new Canvas();
+					
+					_can.label=_sheet;
+					_can.percentHeight = 99;
+					_can.percentWidth = 99;
+					_can.left = 5;
+					_can.right = 5;
+					_can.bottom = 20;				
+					
+					var _dg:DataGrid = new DataGrid();
+					_dg.dataProvider = _sheetData.data;					
+					_dg.percentHeight = 99;
+					_dg.percentWidth = 99;
+					_dg.left = 5;
+					_dg.top = 20;
+					_dg.bottom = 5;					
+					var _label:Label = new Label();
+					_label.text = "No of Rows : "+_sheetData.rowCount;
+					_label.setStyle("fontWeight","bold");
+					_label.right = 25;
+					_label.height = 18;
+					_label.y = 2;
+					_can.addChild(_label);
+					_can.addChild(_dg);					
+					tabBar.addChild(_can);
+					/* 	trace("0:"+_sheetData.getCellValue(0,3));
+					trace("1:"+_sheetData.getCellValue(1,3));
+					trace("2:"+_sheetData.getCellValue(2,3));
+					trace("3:"+_sheetData.getCellValue(3,3));
+					trace("4:"+_sheetData.getCellValue(4,3));
+					trace("d:"+_sheetData.getRowValues(_sheetData.rowCount));*/
+				}
+			}
+			
+			
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>	
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" paddingBottom="5" paddingLeft="5"
+			 paddingRight="5" paddingTop="5" verticalAlign="middle">
+		<mx:HBox>
+			<mx:Button id="loadBtn" label="Load Data" click="loadBtn_clickHandler(event)"
+					   cornerRadius="2"/>
+			<mx:Button label="Re-Load" click="application1_creationCompleteHandler(event)"/>
+		</mx:HBox>
+		
+		
+		<mx:TabNavigator id="tabBar" x="10" y="10" width="100%" height="99%">
+			
+		</mx:TabNavigator>	
+	</mx:VBox>
+	
+</s:Application>
