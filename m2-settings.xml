@@ -107,12 +107,23 @@
           <layout>default</layout>  
           <releases>  
             <enabled>true</enabled>  
-            <updatePolicy>never</updatePolicy>  
+            <updatePolicy>daily</updatePolicy>  
           </releases>  
           <snapshots>  
             <enabled>false</enabled>  
           </snapshots>  
         </repository>  
+		<repository>
+				<id>spring-snapshot</id>
+				<name>Spring Portfolio Snapshot Repository</name>
+				<url>http://maven.springframework.org/snapshot</url>
+				<releases>
+					<enabled>false</enabled>
+				</releases>
+				<snapshots>
+					<enabled>true</enabled>
+				</snapshots>
+		</repository>
       </repositories>  
     </profile> 
   </profiles>
@@ -126,5 +137,6 @@
   <activeProfile>jboss-public-repository-group</activeProfile>
   <activeProfile>jboss-deprecated</activeProfile>  
   <activeProfile>jboss-maven2-brew</activeProfile>    
+  <!--activeProfile>spring-snapshot</activeProfile-->      
   </activeProfiles>
 </settings>
