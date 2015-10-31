@@ -1,0 +1,156 @@
+6.1. Maven Command Line Options
+The following sections detail Maven’s command line options.
+
+6.1.1. Defining Properties
+To define a property use the following option on the command line:
+
+-D, --define <arg>
+Defines a system property
+This is the option most frequently used to customized the behavior of Maven plugins. Some examples of using the -D command line argument:
+
+$ mvn help:describe -Dcmd=compiler:compile
+$ mvn install -Dmaven.test.skip=true
+Properties defined on the command line are also available as properties to be used in a Maven POM or Maven Plugin. 
+Form more information about referencing Maven properties, see Chapter 9, Properties and Resource Filtering.
+
+Properties can also be used to activate build profiles. For more information about Maven build profiles, see Chapter 5, Build Profiles.
+
+6.1.2. Getting Help
+To list the available command line parameters, use the following command line option:
+
+-h, --help
+Display help information
+Executing Maven with this option produces the following output:
+
+$ mvn --help
+
+usage: mvn [options] [<goal(s)>] [<phase(s)>]
+
+Options:
+-am,--also-makeIf project list is specified, also
+build projects required by the
+list
+-amd,--also-make-dependentsIf project list is specified, also
+build projects that depend on
+projects on the list
+-B,--batch-modeRun in non-interactive (batch)
+mode
+...
+If you are looking for information about the goals and parameters available from a specific Maven plugin, see Section 6.3, 
+“Using the Maven Help Plugin”.
+
+6.1.3. Using Build Profiles
+To activate one or more build profiles from the command line, use the following option:
+
+-P, --activate-profiles <arg>
+Comma-delimited list of profiles to activate
+For more information about build profiles, see Chapter 5, Build Profiles.
+
+6.1.4. Displaying Version Information
+To display Maven version information, use one of the following options on the command line:
+
+-V, --show-version
+Display version information WITHOUT stopping build
+-v, --version
+Display version information
+Both of these options produce the same version information output, but the -v option will terminate the Maven process after printing 
+out the version. You would use the -V option if you wanted to have the Maven version information present at the beginning of your build’s output.
+ This can come in handy if you are running Maven in a continuous build environment and you need to know what version of Maven was used for a 
+ particular build.
+
+Maven Version Information. 
+
+$ mvn -v
+Apache Maven 2.2.1 (r801777; 2009-08-06 14:16:01-0500)
+Java version: 1.6.0_15
+Java home: /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
+Default locale: en_US, platform encoding: MacRoman
+OS name: "mac os x" version: "10.6.1" arch: "x86_64" Family: "mac"
+6.1.5. Running in Offline Mode
+If you ever need to use Maven without having access to a network, you should use the following option to prevent any attempt to check for 
+updates to plugins or dependencies over a network:
+
+-o, --offline
+Work offline
+When running with the offline option enabled, Maven will not attempt to connect to a remote repository to retrieve artifacts.
+
+6.1.6. Using a Custom POM or Custom Settings File
+If you don’t like the pom.xml file name, the location of your user-specific Maven settings, or the default location of your global settings file, 
+you can customize any of these things with the following options:
+
+-f, --file <file>
+Forces the use of an alternate POM file
+-s,--settings <arg>
+Alternate path for the user settings file
+-gs, --global-settings <file>
+Alternate path for the global settings file
+6.1.7. Encrypting Passwords
+The following commands allow you to use Maven to encrypt passwords for storage in a Maven settings file:
+
+-emp, --encrypt-master-password <password>
+Encrypt master security password
+-ep, --encrypt-password <password>
+Encrypt server password
+Encrypting passwords is documented in Section 15.2.11, “Encrypting Passwords in Maven Settings”.
+
+6.1.8. Dealing with Failure
+The following options control how Maven reacts to a build failure in the middle of a multi-module project build:
+
+-fae, --fail-at-end
+Only fail the build afterwards; allow all non-impacted builds to continue
+-ff, --fail-fast
+Stop at first failure in reactorized builds
+-fn, --fail-never
+NEVER fail the build, regardless of project result
+The -fn and -fae options are useful options for multi-module builds that are running within a continuous integration tool like Hudson. 
+The -ff option is very useful for developers running interactive builds who want to have rapid feedback during the development cycle.
+
+6.1.9. Controlling Maven’s Verbosity
+If you want to control Maven’s logging level, you can use one of the following three command line options:
+
+-e, --errors
+Produce execution error messages
+-X, --debug
+Produce execution debug output
+-q, --quiet
+Quiet output - only show errors
+The -q option only prints a message to the output if there is an error or a problem.
+
+The -X option will print an overwhelming amount of debugging log messages to the output. This option is primarily used by Maven developers 
+and by Maven plugin developers to diagnose problems with Maven code during development. This -X option is also very useful if you are attempting
+ to diagnose a difficult problem with a dependency or a classpath.
+
+The -e option will come in handy if you are a Maven developer, or if you need to diagnose an error in a Maven plugin. If you are reporting 
+an unexpected problem with Maven or a Maven plugin, you will want to pass both the -X and -e options to your Maven process.
+
+6.1.10. Running Maven in Batch Mode
+To run Maven in batch mode use the following option:
+
+-B, --batch-mode
+Run in non-interactive (batch) mode
+Batch mode is essential if you need to run Maven in a non-interactive, continuous integration environment. When running in non-interactive mode, 
+Maven will never stop to accept input from the user. Instead, it will use sensible default values when it requires input.
+
+6.1.11. Downloading and Verifying Dependencies
+The following command line options affect the way that Maven will interact with remote repositories and how it verifies downloaded artifacts:
+
+-C, --strict-checksums
+Fail the build if checksums don’t match
+-c, --lax-checksums
+Warn if checksums don’t match
+-U, --update-snapshots
+Forces a check for updated releases and snapshots on remote repositories
+If you are concerned about security, you will want to run Maven with the -C option. Maven repositories maintain an MD5 and SHA1 checksum for every 
+artifact stored in a repository. Maven is configured to warn the end-user if an artifact’s checksum doesn’t match the downloaded artifact. Passing 
+in the -C option will cause Maven to fail the build if it encounters an artifact with a bad checksum.
+
+The -U option is useful if you want to make sure that Maven is checking for the latest versions of all SNAPSHOT dependencies.
+
+6.1.12. Non-recursive Builds
+There will be times when you simply want to run a Maven build without having Maven descend into all of a project’s submodules. You can do this by
+ using the following command line option:
+
+-N, --non-recursive
+Prevents Maven from building submodules. Only builds the project contained in the current directory.
+Running this will only cause Maven to execute a goal or step through the lifecycle for the project in the current directory. 
+Maven will not attempt to build all of the projects in a multi-module project when you use the -N command line option.
