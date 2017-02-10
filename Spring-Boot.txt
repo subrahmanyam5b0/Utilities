@@ -1,0 +1,34 @@
+Spring boot
+
+
+
+Enviroment/profile based properties in yml file
+
+java -jar -Dspring.profiles.active=<ENV> <>.jar
+
+application.yml/ application-{profile}.yml
+=============================================
+spring:
+  profiles.active: development
+
+---
+spring:
+  profiles: development
+datasource:
+  db-person:
+      url: jdbc:oracle:thin:@db_person_dev
+      username: username
+      password: pwd
+      driver-class-name: oracle.jdbc.OracleDriver
+      test-on-borrow: true
+      validation-query: SELECT 1 FROM dual
+  db-contract:
+      url: jdbc:oracle:thin:@db_contract_dev
+      username: username
+      password: pwd
+      driver-class-name: oracle.jdbc.OracleDriver
+      test-on-borrow: true
+      validation-query: SELECT 1 FROM dual
+
+---
+=======================================================
