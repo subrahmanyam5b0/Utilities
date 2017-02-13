@@ -1,0 +1,9 @@
+Download the latest gitbucket.war from the releases page and run it by java -jar gitbucket.war.
+Go to http://[hostname]:8080/ and log in with root / root.
+You can specify following options:
+
+--port=[NUMBER]
+--prefix=[CONTEXTPATH]
+--host=[HOSTNAME]
+--gitbucket.home=[DATA_DIR]
+--temp_dir=[TEMP_DIR]
